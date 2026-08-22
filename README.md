@@ -12,22 +12,47 @@ For educational purposes.
 1. Go through `downloads.json` file and remove the objects you don't want to download.
 1. Save the final file contents.
 
-### Fetch the urls for download
+### Fetch the URLs for download
 
-1. Make sure you have [jq](https://jqlang.org/) installed.
-1. Run `jq -r '.[].url' downloads.json > downloads.txt` or [./geturls.sh](./geturls.sh)
-1. You have a new file `downloads.txt`
+On Linux or macOS:
+
+```bash
+./geturls.sh
+```
+
+This requires [jq](https://jqlang.org/). On Windows PowerShell:
+
+```powershell
+.\geturls.ps1
+```
+
+Both commands create `downloads.txt`.
 
 ### Download the files
 
-1. Make sure you have [gxargs](https://man.freebsd.org/cgi/man.cgi?query=gxargs&sektion=1&apropos=0&manpath=FreeBSD+6.0-RELEASE+and+Ports) installed. This is to allow us to run max processes. In Mac OS, run `brew install findutils` to install it.
-1. Set up your environment:
-    ```bash
-    YTDLP_DOWNLOAD_PATH=/path/to/your/downloads/folder
-    YTDLP_ARCHIVE_PATH=/path/to/your/archive/file.txt #enables you to avoid download duplications
-    ```
+The shell aliases and functions are managed in
+[musale/dotfiles](https://github.com/musale/dotfiles). They require `yt-dlp`,
+Chrome cookies, and `ytmusic-resolve.py` for song resolution. The defaults save
+music under `~/Music/New` and keep the duplicate-download archive at
+`~/.ytdlp/download.txt`.
 
-1. run the following command to download `m4a` format. If you need mp3 or other format, change `mp4` to your preference:
-    ```bash
-    cat downloads.txt | gxargs -P 4 -I {}   yt-dlp --throttled-rate 100K --no-mtime --audio-multistreams -P $YTDLP_DOWNLOAD_PATH --download-archive $YTDLP_ARCHIVE_PATH -f ba --extract-audio --embed-thumbnail --embed-metadata -o "%(title)s.%(ext)s" --audio-format m4a "{}"
-    ```
+Load your dotfiles profile, then run:
+
+```bash
+./download.sh
+```
+
+Or on Windows PowerShell:
+
+```powershell
+.\download.ps1
+```
+
+The available commands in both shells are:
+
+| Command | Purpose |
+| --- | --- |
+| `dm4a <video-id>` | Download one YouTube Music track as M4A |
+| `dmp3 <video-id> [auto]` | Resolve and download one track as MP3 |
+| `dmp3l <video-id> <list-id> [count] [pick]` | Resolve and download playlist tracks |
+| `ytids <video-id> <list-id> [count]` | List playlist indexes, IDs, and titles |
