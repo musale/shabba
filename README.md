@@ -30,21 +30,23 @@ Both commands create `downloads.txt`.
 
 ### Download the files
 
-The shell aliases and functions are managed in
-[musale/dotfiles](https://github.com/musale/dotfiles). They require `yt-dlp`,
-Chrome cookies, and `ytmusic-resolve.py` for song resolution. The defaults save
-music under `~/Music/New` and keep the duplicate-download archive at
-`~/.ytdlp/download.txt`.
+The Unix aliases are managed in
+[musale/dotfiles](https://github.com/musale/dotfiles). The complete standalone
+Windows setup is in [`powershell`](./powershell/README.md). Both use Chrome
+cookies by default and save music under `~/Music/New`, with the
+duplicate-download archive at `~/.ytdlp/download.txt`. Windows also detects Edge
+and Firefox profiles.
 
-Load your dotfiles profile, then run:
+On Linux or macOS, load your dotfiles profile and run:
 
 ```bash
 ./download.sh
 ```
 
-Or on Windows PowerShell:
+On Windows PowerShell, install the standalone package once and then run:
 
 ```powershell
+.\powershell\install.ps1
 .\download.ps1
 ```
 
